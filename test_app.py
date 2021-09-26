@@ -55,3 +55,18 @@ def test_pred_Versicolour():
         # asserting the correct response is received
         assert response.status_code == 200
         assert response.json()["flower_class"] == "Iris Versicolour"
+
+# test to check the correct functioning of the /feedback_loop route
+def test_feedback_loop():
+    payload = [{
+        "sepal_length": 3.0,
+        "sepal_width": 5.0,
+        "petal_length": 3.2,
+        "petal_width": 4.4,
+        "flower_class": "Iris Virginica"
+    }]
+    with TestClient(app) as client:
+        response = client.post("/feedback_loop", json=payload)
+        # asserting the correct response is received
+        assert response.status_code == 200
+        assert response.json() == {"detail": "Feedback loop successful"} 
